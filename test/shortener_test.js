@@ -3,7 +3,12 @@ var expect = require('chai').expect;
 
 var express = require('express');
 
-var shorten = require('../lib/routing/shorten')();
+var InMemory = require('../lib/repository/memory');
+var shortener = require('../lib/routing/shorten')({
+    repository : new InMemory({
+	'known': 'http://google.com'
+    })
+});
 
 describe('shortener routing', function(){
     var app;
@@ -11,7 +16,8 @@ describe('shortener routing', function(){
     beforeEach(function(){
 	app = new express();
 	app.use(express.bodyParser());
-	app.post('/', shorten);
+	app.post('/', shortener.shorten);
+	app.get('/:key', shortener.redirect);
     });
 
     it('should shorten a target', function(done){
@@ -22,6 +28,15 @@ describe('shortener routing', function(){
 	    .expect('Content-Type', /json/)
 	    .end(function(error, response){
 		expect(response.body).to.have.property('key');
+		done();
+	    });
+    });
+
+    it('should redirect a known key', function(done){
+	request(app).get('/known')
+	    .expect(200)
+	    .end(function(error, response){
+		expect(response.header.location).to.equal('http://google.com');
 		done();
 	    });
     });

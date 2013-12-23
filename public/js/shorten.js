@@ -13,20 +13,32 @@
 	http.setRequestHeader("Content-length", json.length);
 	http.onreadystatechange = function(){
 	    if (http.readyState == 4 && http.status == 200) {
-		callback.call(http.responseText);
+		var json = JSON.parse(http.responseText);
+		callback.call(null, json);
 	    }
 	}
 	http.send(json);
     }
 
+    var origin = window.location.origin;
     var input = document.getElementById('target');
+    var output = document.getElementById('output');
+
+    function showLinkFor(key) {
+	var url = origin + '/' + key;
+	var link = document.createElement('a');
+	link.setAttribute('href', url);
+	link.textContent = url;
+	output.replaceChild(link, output.children[0]);
+    }
 
     function shorten(){
 	var target = input.value;
 	var parameters = { 'target': target };
 
-	new PostRequest(window.location.origin).send(parameters, function(){
-	    console.log('posted');
+	new PostRequest(origin).send(parameters, function(result){
+	    input.value = '';
+	    showLinkFor(result.key);
 	});
     }
 

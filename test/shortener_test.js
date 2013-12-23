@@ -15,7 +15,7 @@ describe('shortener routing', function(){
 
     beforeEach(function(){
 	app = new express();
-	app.use(express.bodyParser());
+	app.use(express.json());
 	app.post('/', shortener.shorten);
 	app.get('/:key', shortener.redirect);
     });

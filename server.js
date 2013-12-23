@@ -5,7 +5,7 @@ var server = require('http').createServer(app);
 var shortener = require('./lib/routing/shorten')();
 
 app.set('port', process.env.PORT || 3435);
-app.use(express.bodyParser());
+app.use(express.json());
 app.use('/static', express.static(__dirname + '/public'));
 
 app.post('/', shortener.shorten);

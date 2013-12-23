@@ -40,4 +40,15 @@ describe('shortener routing', function(){
 		done();
 	    });
     });
+
+    it('should give error message upon unknown key', function(done){
+	request(app).get('/unknown')
+	    .expect(404)
+	    .expect('Content-Type', /json/)
+	    .end(function(error, response){
+		expect(response.body).to.have.property('message');
+		expect(response.body.message).to.match(/'unknown' is not a known key/);
+		done();
+	    });
+    });
 });

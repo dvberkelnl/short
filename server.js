@@ -8,10 +8,8 @@ app.set('port', process.env.PORT || 3435);
 app.use(express.bodyParser());
 app.use('/static', express.static(__dirname + '/public'));
 
-app.get('/', function(request, response){
-    response.send(200, "Hello World");
-});
 app.post('/', shortener.shorten);
+app.get('/:key', shortener.redirect);
 
 server.listen(app.get('port'));
 console.log('listening on port ' + app.get('port'));

@@ -25,14 +25,16 @@ describe('notation', function(){
 	    12 : 'aaa'
 	}
     }
+
     for (digits in notations) {
 	var notation = factory(digits);
-
 	var cases = notations[digits];
-	for (input in cases) {
-	    it('should convert a \'' + input + '\' to \'' + cases[input] + '\'', function(){
-		expect(notation(input)).to.equal(cases[input]);
-	    });
-	}
+	describe(digits, function(){
+	    for (input in cases) {
+		it('should convert a \'' + input + '\' to \'' + cases[input] + '\'', function(){
+		    expect(notation(input)).to.equal(cases[input]);
+		});
+	    }
+	});
     };
 });

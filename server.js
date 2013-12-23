@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 
-var shorten = require('./lib/routing/shorten');
+var shorten = require('./lib/routing/shorten')();
 
 app.set('port', process.env.PORT || 3435);
 app.use(express.bodyParser());

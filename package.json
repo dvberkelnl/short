@@ -20,5 +20,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dvberkelnl/short/issues"
+  },
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.16.1"
   }
 }

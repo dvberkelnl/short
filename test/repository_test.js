@@ -1,10 +1,21 @@
 var expect = require('chai').expect;
 
-var InMemory = require('../lib/repository/memory.js')
+var InMemory = require('../lib/repository/memory.js');
+var Redis = require('../lib/repository/redis.js');
 
 describe('A repository', function(){
     var knownShorts = { 'knownKey' : 'http://dvberkel.github.io' };
-    var factories = [function inMemory(urls){ return new InMemory(urls); }];
+    var factories = [
+	function inMemory(urls){ return new InMemory(urls); }
+    ];
+
+    if (process.env.TEST_REDIS) {
+	factories.push(function redis(urls){
+	    return new Redis(urls, {
+		port : 6380
+	    });
+	});
+    }
 
     factories.forEach(function(factory){
 	describe(factory.name, function(){

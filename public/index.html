@@ -2,11 +2,28 @@
 <html>
   <head>
     <meta chartype="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL shortener</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/short.css" rel="stylesheet">
   </head>
   <body>
-    <input id="target" type="text"/><button id="shorten">Shorten</button>
-    <div id="output"><span></span></div>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">URL shortener</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="short-template">
+	<input id="target" type="text" class="input-lg"/><button id="shorten" class="btn btn-lg">Shorten</button>
+	<div id="output" class="output"><span></span></div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/shorten.js"></script>
   </body>
 </html>
